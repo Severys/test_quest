@@ -8,6 +8,7 @@
 			class="input_id"
 			placeholder="Введите свой ID"
 			v-model="input_id"
+			@input="hasError=''"
 		>
 		<div class="error"
 			v-if="hasError && hasError.length"
@@ -45,7 +46,8 @@ export default {
 		/// Проверка соответствия длины ввода
 		getinputlength(){ 
 			return this.input_id.length === this.idLength
-		}},
+		}
+	},
 	methods:{
 		/// Проверка длинны и отправка запроса + отлов ошибок
 		filter() { 
@@ -83,6 +85,7 @@ export default {
 	flex-direction: column;
 	align-items: center;
 	margin-top: 100px;
+	position: relative;
 }
  .input_id {
 	width: 50%;
@@ -94,6 +97,8 @@ export default {
 	font-size: 15px;
  }
  .error {
+	position: absolute;
+	top: 130px;
 	color: red;
  }
 </style>
