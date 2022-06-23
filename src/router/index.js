@@ -1,23 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'main',
+    component: () => import('../views/v-main.vue'),
+
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
+    path: '/analytics',
+    name: 'analytics',
+    component: () => import('../views/v-analytics.vue'),
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

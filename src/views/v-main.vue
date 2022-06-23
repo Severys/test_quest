@@ -8,7 +8,7 @@
 import VAuthorization from '@/components/v-authorization.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'v-main',
   components: {
     VAuthorization
   }

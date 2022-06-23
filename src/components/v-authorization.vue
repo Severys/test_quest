@@ -11,11 +11,13 @@
 		>
 		<div class="error"
 			v-if="hasError && hasError.length"
-			>
+		>
 			{{hasError}}
 		</div>
 		<button class="btn"
-			@click="filter">Войти
+			@click="filter"
+		>
+			Войти
 		</button>
 	</div>
 </template>
@@ -27,23 +29,25 @@ export default {
 	name: 'VAuthor',
 	data() {
 		return {
-			input_id: '',
-			hasError: '',
-			request: {
+			input_id: '', /// Значение id
+			hasError: '', /// Текст ошибки
+			idLength: 24,
+			request: {    /// Url и заголовки запроса
 				url: 'https://track-api.leadhit.io/client/test_auth',
 				headers: {
 					'Api-Key':'5f8475902b0be670555f1bb3:eEZn8u05G3bzRpdL7RiHCvrYAYo',
 					'Leadhit-Site-Id': ''
 				}
-
-			}
+			},
 		}
 	},
 	computed:{
-		getinputlength(){
-			return this.input_id.length === 24
+		/// Проверка соответствия длины ввода
+		getinputlength(){ 
+			return this.input_id.length === this.idLength
 		}},
 	methods:{
+		/// Проверка длинны и отправка запроса + отлов ошибок
 		filter() { 
 			if (!this.getinputlength){
 				this.hasError = 'id сайта должен содержать 24 символа'
@@ -54,6 +58,7 @@ export default {
 				})
 				.then(response => {
 					if(response.data.message === 'ok') {
+						localStorage.setItem('id',this.input_id)
 						this.gotoAnalytics()
 					}
 				})
@@ -62,9 +67,10 @@ export default {
 				})
 			}
 		},
+		/// Переход на станицу analytics
 		gotoAnalytics() {
 			this.$router.push({
-				name: 'about',
+				name: 'analytics',
 			})
 		}
 	}
